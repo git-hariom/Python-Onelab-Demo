@@ -17,12 +17,13 @@ class tkinterApp(tk.Tk):
         # __init__ function for class Tk
         tk.Tk.__init__(self, *args, **kwargs) 
 
-        #self.geometry("800x600")
+        self.geometry("800x600")
         self.title("OneLab")
-        
+        self.configure(bg="#FC8F54")  # Set container background
+
         # creating a container
         container = tk.Frame(self, bg="#FC8F54")
-        container.pack(side="top", fill = "none", expand = True)
+        container.pack(side="top", fill = "both", expand = True)
 
         # initializing frames to an empty array
         self.frames = {} 
@@ -52,51 +53,60 @@ class tkinterApp(tk.Tk):
 
 class StartMenu(tk.Frame):
     def __init__(self, parent, controller): 
-        tk.Frame.__init__(self, parent, bg="#FC8F54")        
+        tk.Frame.__init__(self, parent, bg="#FC8F54")
+
+        # Create a style for the button
+        style = ttk.Style()
+        style.configure("TButton",
+                foreground="white",    # Text color
+                font=("Arial", 10))    # Font size
+        
+        style.map("TButton",
+          background=[("active", "#45a049"), ("pressed", "#388e3c")])  # Change color when button is active or pressed
 
         ##################### Modelization ################################
-        button1 = ttk.Button(self, text ="Modelization",
-        command = lambda : controller.show_frame(Modelization),width=20)
+        button1 = ttk.Button(self, text ="Modelization", style="TButton", width=50,
+        command = lambda : controller.show_frame(Modelization))
     
         # putting the button in its place by
         # using grid
-        button1.place(relx = 0.5, rely = 0.1, anchor="center")
+        button1.place(relx = 0.5, rely = 0.2, anchor="center")
 
         ##################### Junction Checker ################################
         ## button to show frame 2 with text layout2
-        button2 = ttk.Button(self, text ="Junction Checker",
-        command = lambda : controller.show_frame(JunctionChecker),width=20)
+        button2 = ttk.Button(self, text ="Junction Checker", style="TButton", width=50,
+        command = lambda : controller.show_frame(JunctionChecker))
     
         # putting the button in its place by
         # using grid
-        button2.place(relx = 0.5, rely = 0.25, anchor="center")
+        button2.place(relx = 0.5, rely = 0.35, anchor="center")
 
         ##################### Wizard csv Creator ################################
          ## button to show frame 2 with text layout2
-        button3 = ttk.Button(self, text ="Wizard csv Creator",
-        command = lambda : controller.show_frame(Wizard_csvCreator),width=20)
+        button3 = ttk.Button(self, text ="Wizard csv Creator", style="TButton", width=50,
+        command = lambda : controller.show_frame(Wizard_csvCreator))
         
         # putting the button in its place by
         # using grid
-        button3.place(relx = 0.5, rely = 0.4, anchor="center")
+        button3.place(relx = 0.5, rely = 0.5, anchor="center")
 
         ##################### TestLab ################################
          ## button to show frame 2 with text layout2
-        button4 = ttk.Button(self, text ="TestLab",
-        command = lambda : controller.show_frame(TestLab),width=20)
+        button4 = ttk.Button(self, text ="TestLab", style="TButton", width=50,
+        command = lambda : controller.show_frame(TestLab))
     
         # putting the button in its place by
         # using grid
-        button4.place(relx = 0.5, rely = 0.55, anchor="center")
+        button4.place(relx = 0.5, rely = 0.65, anchor="center")
 
         ##################### V0 Model Creator ################################
          ## button to show frame 2 with text layout2
-        button4 = ttk.Button(self, text ="Create V0 Model",
-        command = lambda : controller.show_frame(V0_Model_Creator),width=20)
+        button4 = ttk.Button(self, text ="Create V0 Model", style="TButton", width=50,
+        command = lambda : controller.show_frame(V0_Model_Creator))
     
         # putting the button in its place by
         # using grid
-        button4.place(relx = 0.5, rely = 0.7, anchor="center")
+        button4.place(relx = 0.5, rely = 0.8, anchor="center")
 
         
 # Modelization page
@@ -104,7 +114,7 @@ class Modelization(tk.Frame):
     
     def __init__(self, parent, controller):
         
-        tk.Frame.__init__(self, parent)
+        tk.Frame.__init__(self, parent, bg="#FC8F54")
 
         # Add MDD and Ucdef file upload functionality
 
@@ -186,15 +196,15 @@ class Modelization(tk.Frame):
             self.submit_modelisation_data(ucDef_path,mdd_path,ICD_path,Model_path)
 
         # Add submit button
-        submit_button = ttk.Button(self, text="Submit", command=SubmitData)
+        submit_button = ttk.Button(self, text="Submit", command=SubmitData, width=52)
         #submit_button = ttk.Button(frame, text="Submit", command=lambda i = ucdef_path_var.get() ,j = mdd_path_var.get() :self.submit_data(i,j))
         submit_button.grid(row=4, column=2, pady=10)
 
         # home button to go back to start page
-        button1 = ttk.Button(self, text ="Home",
+        button1 = ttk.Button(self, text ="Home", width=52,
                             command = lambda : controller.show_frame(StartMenu))
     
-        button1.grid(row = 4, column = 1,  pady = 10)
+        button1.grid(row=5, column=2, pady=10)
 
     def submit_modelisation_data(self,ucDef_path,mdd_path,ICD_path,Model_path):
         # Submit data functionality
@@ -218,7 +228,7 @@ class Modelization(tk.Frame):
 class JunctionChecker(tk.Frame): 
     def __init__(self, parent, controller):
 
-        tk.Frame.__init__(self, parent)
+        tk.Frame.__init__(self, parent, bg="#FC8F54")
 
         #cfg file path label and browse button functionality
         cfg_label = ttk.Label(self, text="usecode.cfg:")
@@ -295,15 +305,15 @@ class JunctionChecker(tk.Frame):
             self.submit_junctionChecker_data(cfg_path,master_ICD_path,ucdef_path,instancePrefix,brio_instance)
 
         # Add submit button
-        submit_button = ttk.Button(self, text="Submit", command=SubmitData)
+        submit_button = ttk.Button(self, text="Submit", command=SubmitData, width=25)
         #submit_button = ttk.Button(frame, text="Submit", command=lambda i = ucdef_path_var.get() ,j = mdd_path_var.get() :self.submit_data(i,j))
         submit_button.grid(row=5, columnspan=3, pady=10)
 
         # home button to go back to start page
-        button1 = ttk.Button(self, text ="Home",
+        button1 = ttk.Button(self, text ="Home", width=25,
                             command = lambda : controller.show_frame(StartMenu))
     
-        button1.grid(row = 5, column = 1,  pady = 10)
+        button1.grid(row=6, columnspan=3, pady=10)
 
         def submit_junctionChecker_data(self,cfg_path,master_ICD_path,ucdef_path,instancePrefix,brio_instance):
             # Submit data functionality
@@ -327,7 +337,8 @@ class JunctionChecker(tk.Frame):
 class Wizard_csvCreator(tk.Frame): 
     def __init__(self, parent, controller):
  
-        tk.Frame.__init__(self, parent)
+        tk.Frame.__init__(self, parent, bg="#FC8F54")
+        
  
         #cfg file path label and browse button functionality
         cfg_label = ttk.Label(self, text="Controller .Ucdef_File:")
@@ -390,15 +401,15 @@ class Wizard_csvCreator(tk.Frame):
             self.submit_wizard_data(Controller,ENV,Controller_inst1,ENV_inst1)
  
         # Add submit button
-        submit_button = ttk.Button(self, text="Submit", command=SubmitData)
+        submit_button = ttk.Button(self, text="Submit", command=SubmitData, width=15)
         #submit_button = ttk.Button(frame, text="Submit", command=lambda i = ucdef_path_var.get() ,j = mdd_path_var.get() :self.submit_data(i,j))
-        submit_button.grid(row=5, columnspan=3, pady=10)
+        submit_button.grid(row=5, columnspan=3,pady=10)
  
         # home button to go back to start page
-        button1 = ttk.Button(self, text ="Home",
+        button1 = ttk.Button(self, text ="Home", width=15,
                             command = lambda : controller.show_frame(StartMenu))
    
-        button1.grid(row = 5, column = 1,  pady = 10)
+        button1.grid(row=7, columnspan=3, pady=10)
  
     def submit_wizard_data(self,Controller,ENV,Controller_inst1,ENV_inst1):
         #Submit data functionality
@@ -411,25 +422,44 @@ class Wizard_csvCreator(tk.Frame):
 class TestLab(tk.Frame): 
     def __init__(self, parent, controller):
 
-        tk.Frame.__init__(self, parent)
+        tk.Frame.__init__(self, parent, bg="#FC8F54")
+
+        # Create a style for the button
+        style = ttk.Style()
+        style.configure("TButton",
+                foreground="white",    # Text color
+                font=("Arial", 10))    # Font size
+        
+        style.map("TButton",
+          background=[("active", "#45a049"), ("pressed", "#388e3c")])  # Change color when button is active or pressed
+
 
         # home button to go back to start page
-        button1 = ttk.Button(self, text ="Home",
+        button1 = ttk.Button(self, text ="Home", style="TButton", width=50,
                             command = lambda : controller.show_frame(StartMenu))
     
-        button1.grid(row = 4, column = 1,  pady = 10)
+        button1.place(relx= 0.5, rely = 0.5, anchor="center")
 
 #V0 Model Creator
 class V0_Model_Creator(tk.Frame): 
     def __init__(self, parent, controller):
 
-        tk.Frame.__init__(self, parent)
+        tk.Frame.__init__(self, parent, bg="#FC8F54")
+
+         # Create a style for the button
+        style = ttk.Style()
+        style.configure("TButton",
+                foreground="white",    # Text color
+                font=("Arial", 10))    # Font size
+        
+        style.map("TButton",
+          background=[("active", "#45a049"), ("pressed", "#388e3c")])  # Change color when button is active or pressed
 
         # home button to go back to start page
-        button1 = ttk.Button(self, text ="Home",
+        button1 = ttk.Button(self, text ="Home", style="TButton", width=50,
                             command = lambda : controller.show_frame(StartMenu))
     
-        button1.grid(row = 4, column = 1,  pady = 10)
+        button1.place(relx= 0.5, rely = 0.5, anchor="center")
 
 # Driver Code
 app = tkinterApp()
